@@ -1,0 +1,31 @@
+package Assignment3;
+
+public class Translator {
+	
+	public String translate(String data)
+	{
+		String ret = "";
+		
+		return ret;
+	}
+	/*
+	 * <operation> <category> <name> <price> <quantity> <weight>
+<optional field1> <optional field2>
+	 * */
+	public boolean insert(String[] data)
+	{
+		boolean ret = false;
+		// finds out what kind of input there is
+		if(data[0].equals("ELECTRONICS")){
+			//call item constructor, get your item
+			//add it to the arraylist "shopping cart"
+			
+		}
+		else if(data[0].equals("CLOTHING")){}
+		else if (data[0].equals("GROCERIES")){}
+
+		
+		return false;
+	}
+
+}
