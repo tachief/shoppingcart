@@ -1,12 +1,13 @@
 package Assignment3;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ShoppingCartDriver 
+{
+	
+	public static void main(String[] args) 
 	{
-
-	  public static void main(String[] args) 
-	  {
 		// TODO Auto-generated method stub
 		
 		//Open file; file name specified in args (command line)
@@ -27,6 +28,6 @@ public class ShoppingCartDriver
 			//based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
 			// of Grocery, it will invoke the calculatePrice () method defined in Grocery.
 		}		
-	  }
-
+	}
+	  
 }

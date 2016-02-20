@@ -5,14 +5,14 @@ public class Item
 //Declare variables for this class. Think about its type: public, protected or private?
 	protected String name;
 	
-	protected float price;
+	protected double price;
 	
 	protected int quantity;
 	
 	
 // You will need a constructor (Why?). Create it here.
 	
-	float calculatePrice () 
+	public double calculatePrice () 
 	{
 		float final_price = 0;
 		// Insert price calculation here
@@ -20,9 +20,14 @@ public class Item
 	}
 	
 
-	void printItemAttributes () 
+	public void printItemAttributes () 
 	{
 		//Print all applicable attributes of this class
+	}
+	
+	public void addQuantity(int quantity)
+	{
+		this.quantity += quantity;
 	}
 
 }

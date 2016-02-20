@@ -5,14 +5,14 @@ public class Clothing extends Item
 
 	// variables, constructors as necessary
 	
-	float calculatePrice () 
+	public double calculatePrice () 
 	{
 		float final_price = 0;
 		// Insert price calculation here
 		return final_price;
 	}
 	
-	void printItemAttributes () 
+	public void printItemAttributes () 
 	{
 		//Print all applicable attributes of this sub-class
 	}
