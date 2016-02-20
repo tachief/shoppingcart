@@ -4,30 +4,36 @@ public class Item
 {
 //Declare variables for this class. Think about its type: public, protected or private?
 	protected String name;
-	
-	protected double price;
-	
 	protected int quantity;
-	
-	
+	protected double price;
+	protected double weight;
+	protected double finalPrice;
 // You will need a constructor (Why?). Create it here.
-	
-	public double calculatePrice () 
+	public Item(String name, double price, int quantity, double weight)
 	{
-		float final_price = 0;
-		// Insert price calculation here
-		return final_price;
+		this.name = name;
+		this.price = price;
+		this.weight = weight;
+		this.quantity = quantity;
+	};
+	public String[] getTraits()
+	{
+		String[] ret = {name, Integer.toString(quantity),Double.toString(weight),
+				Double.toString(finalPrice),Double.toString(price), "", "",""};
+		return ret;
 	}
-	
+	double calculatePrice () 
+	{	
+		return (20 * weight)*quantity;
+	}
+	String getName()
+	{
+		return name;
+	}
 
-	public void printItemAttributes () 
+	void printItemAttributes () 
 	{
 		//Print all applicable attributes of this class
-	}
-	
-	public void addQuantity(int quantity)
-	{
-		this.quantity += quantity;
 	}
 
 }

@@ -1,39 +1,51 @@
 package Assignment3;
 
-import java.util.*;
+import java.util.ArrayList;
 
-
-public class ShoppingCart
-{
-	private ArrayList<Item> cart = new ArrayList<Item>(); 
+public class ShoppingCart {
+	private ArrayList<Item> cart = new ArrayList<Item>();
 	
-	
-	public int search(String name)
+	public int delete(String data)
 	{
-		int counter = 0;
-		for(int i = 0; i < cart.size(); i++)
+		int ret = 0;
+		for(int i =0; i < cart.size(); i++)
 		{
-			if(cart.get(i).name.equals(name))
-				counter++;
+			if(cart.get(i).getName().equals(data))
+			{
+				cart.remove(cart.get(i));
+				ret++;
+			}
 		}
-		  
-		return counter;
-		}
-	
-	public String update(String name, int quantity)
-	{
-		if(search(name) == 0)
-		{
-			return "There are no " + name + " in the cart";
-		}
-		int i = 0;
-		while(!cart.get(i).equals(name))
-			i++;
-		
-		cart.get(i).addQuantity(quantity);
-		
-		return quantity + " have been added to the cart";
+		return ret;
 	}
-	
+	public void print()
+	{
+		System.out.println("The contents of the cart are: ");
+		for(int i =0; i < cart.size();i++)
+		{	
+			String base = "" + i + ") ";
+			String[] data = cart.get(i).getTraits();
+			System.out.println(" ");
+			System.out.println(base);
+			if(cart.get(i) instanceof Grocery)
+			{
+				
+			}
+			if(cart.get(i) instanceof Clothing){}
+			if(cart.get(i) instanceof Electronics){}
+		}
+	}
+
 	
 }
+
+/*	public Item findItem(String data){
+for(int i =0;i<cart.size();i++){
+	if(cart.get(i).getName() == data){
+		return cart.get(i);}
+}
+	// the below constructor is not allowed
+	Item newItem = new Item(data);
+	cart.add(newItem);
+    return newItem;
+}*/
