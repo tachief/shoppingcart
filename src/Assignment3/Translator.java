@@ -1,32 +1,53 @@
 package Assignment3;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 
 public class Translator
 {
+	final static String[] STATES = 
+		{
+				"AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", 
+				"GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", 
+				"MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", 
+				"NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", 
+				"SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
+		}; 
 	
-	ArrayList<String> test = new ArrayList();
-	
-	
-	
-	public boolean confirmCorrect()
+	public ArrayList<String> parseInput(String input)
 	{
-		if(test.size() == 0)
+		StringTokenizer parser = new StringTokenizer(input);
+		
+		ArrayList<String> parsed = new ArrayList<String>();
+		
+		while(parser.hasMoreTokens())
+		{
+			parsed.add(parser.nextToken().toUpperCase());
+		}
+		
+		return parsed;
+		
+	}
+	
+	public boolean confirmCorrect(ArrayList<String> input)
+	{
+		if(input.size() == 0)
 			return false;
 		
 		int index = 0;
-		if(test.get(index) == "INSERT")
+		if(input.get(index) == "INSERT")
 		{
 			try
 			{
 				index++;
-				if(!test.get(index).equals("CLOTHING") && !test.get(index).equals("ELECTRONICS") && !test.get(index).equals("GROCERY"))
+				if(!input.get(index).equals("CLOTHING") && !input.get(index).equals("ELECTRONICS") && !input.get(index).equals("GROCERY"))
 				{
 					return false;
 				}
-				String itemType = test.get(index);
+				String itemType = input.get(index);
 				//TODO: replace magic numbers with constants
-				if(!isPositiveDouble(test.get(3)) || !isPositiveInteger(test.get(4)) || !isPositiveDouble(test.get(5)))
+				if(!isPositiveDouble(input.get(3)) || !isPositiveInteger(input.get(4)) || !isPositiveDouble(input.get(5)))
 				{
 					return false;
 				}
@@ -34,7 +55,7 @@ public class Translator
 				index = 6;			//index of first op field
 				if(itemType.equals("CLOTHING"))
 				{
-					if(test.size() != 6)
+					if(input.size() != 6)
 					{
 						return false;
 					}
@@ -42,19 +63,29 @@ public class Translator
 				//TODO: Not done with electronics portion
 				else if(itemType.equals("ELECTRONICS"))
 				{
-					if(test.size() != 8)
+					if(input.size() != 8)
+					{
+						return false;
+					}
+					
+					if (!input.get(index).equals("F") && !input.get(index).equals("F"))
 					{
 						return false;
 					}
 					index++;
-				}
-				else if(itemType.equals("GROCERY"))
-				{
-					if(test.size() != 7)
+					if(!isState(input.get(index)))
 					{
 						return false;
 					}
-					if(!test.get(index).equals("NP") && !test.get(index).equals("P"))
+					
+				}
+				else if(itemType.equals("GROCERY"))
+				{
+					if(input.size() != 7)
+					{
+						return false;
+					}
+					if(!input.get(index).equals("NP") && !input.get(index).equals("P"))
 					{
 						return false;
 					}
@@ -68,37 +99,37 @@ public class Translator
 				return false;
 			}
 		}
-		else if(test.get(index) == "SEARCH")
+		else if(input.get(index) == "SEARCH")
 		{
-			if(test.size() != 2)
+			if(input.size() != 2)
 			{
 				return false;
 			}
 		}
-		else if(test.get(index) == "DELETE")
+		else if(input.get(index) == "DELETE")
 		{
-			if(test.size() != 2)
+			if(input.size() != 2)
 			{
 				return false;
 			}
 			
 		}
-		else if(test.get(index) == "UPDATE")
+		else if(input.get(index) == "UPDATE")
 		{
-			if(test.size() != 3)
+			if(input.size() != 3)
 			{
 				return false;
 			}
 			index = 2;
-			if(!isPositiveInteger(test.get(index)))
+			if(!isPositiveInteger(input.get(index)))
 			{
 				return false;
 			}
 			
 		}
-		else if(test.get(index) == "PRINT")
+		else if(input.get(index) == "PRINT")
 		{
-			if(test.size() > 1)
+			if(input.size() > 1)
 			{
 				return false;
 			}
@@ -143,6 +174,43 @@ public class Translator
 			return false;
 		
 		return true;
+	}
+	
+	public boolean isState(String input)
+	{
+		for(String state : STATES)
+		{
+			if(input.equals(state))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public void execute(ArrayList<String> input)
+	{
+		String command = input.get(0);
+		
+		if(command.equals("INSERT"))
+		{
+			
+		}
+		else if(command.equals("SEARCH"))
+		{
+			
+		}
+		else if(command.equals("DELETE"))
+		{
+			
+		}
+		else if(command.equals("UPDATE"))
+		{
+			
+		}
+		else if(command.equals("PRINT"))
+		{
+			
+		}
 	}
 	
 }

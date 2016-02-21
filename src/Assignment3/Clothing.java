@@ -5,16 +5,19 @@ public class Clothing extends Item
 
 	// variables, constructors as necessary
 	private String state;
+	
 	public Clothing(String name, double price, int quantity, double weight, String state) {
 		super(name, price, quantity, weight);
 		this.state = state;
 	}
+	
 	public String[] getTraits()
 	{
 		String[] ret = super.getTraits();
 		ret[5] = state;
 		return ret;
 	}
+	
 	double calculatePrice () 
 	{
 		double ret = super.calculatePrice();

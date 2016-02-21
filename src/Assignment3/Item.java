@@ -15,17 +15,25 @@ public class Item
 		this.price = price;
 		this.weight = weight;
 		this.quantity = quantity;
-	};
+	}
+	
+	public void addQuantity(int amount)
+	{
+		this.quantity += amount;
+	}
+	
 	public String[] getTraits()
 	{
 		String[] ret = {name, Integer.toString(quantity),Double.toString(weight),
 				Double.toString(finalPrice),Double.toString(price), "", "",""};
 		return ret;
 	}
+	
 	double calculatePrice () 
 	{	
 		return (20 * weight)*quantity;
 	}
+	
 	String getName()
 	{
 		return name;

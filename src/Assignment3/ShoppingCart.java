@@ -18,6 +18,7 @@ public class ShoppingCart {
 		}
 		return ret;
 	}
+	
 	public void print()
 	{
 		System.out.println("The contents of the cart are: ");
@@ -34,6 +35,39 @@ public class ShoppingCart {
 			if(cart.get(i) instanceof Clothing){}
 			if(cart.get(i) instanceof Electronics){}
 		}
+	}
+	
+	public int search(String input)
+	{
+		int counter = 0;
+		for(int i = 0; i < cart.size(); i++)
+		{
+			if(cart.get(i).equals(input))
+				counter++;
+		}
+		
+		return counter;
+	}
+	
+	public String update(String input, int amount)
+	{
+		if(search(input) == 0)
+		{
+			return "There are no " + input + " in the cart"; 
+		}
+		int index = 0;
+		while(index < cart.size())
+		{
+			if(cart.get(index).equals(input))
+				break;
+			
+			index++;
+		}
+		cart.get(index).addQuantity(amount);
+		
+		return "There are now " + cart.get(index).quantity 
+				+ " " +  cart.get(index).name + " in the cart";
+		
 	}
 
 	

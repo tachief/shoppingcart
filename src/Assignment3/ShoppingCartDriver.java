@@ -51,8 +51,18 @@ public class ShoppingCartDriver
 				
 				for (String s = reader.readLine(); s != null; s = reader.readLine()) 
 				{
-					String pigLatin = translator.translate(s);
-					System.out.println(pigLatin);
+					ArrayList<String> input = translator.parseInput(s);
+					if(translator.confirmCorrect(input))
+					{
+						
+					}
+					else
+					{
+						System.out.println("Invalid input. Going to next line.");
+						continue;
+					}
+					
+					
 				}
 			} 
 			catch (FileNotFoundException e) 
