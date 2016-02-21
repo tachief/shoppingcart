@@ -55,14 +55,15 @@ public class Translator
 				index = 6;			//index of first op field
 				if(itemType.equals("CLOTHING"))
 				{
+					//should only have 6 fields
 					if(input.size() != 6)
 					{
 						return false;
 					}
 				}
-				//TODO: Not done with electronics portion
 				else if(itemType.equals("ELECTRONICS"))
 				{
+					//should only have 8 fields
 					if(input.size() != 8)
 					{
 						return false;
@@ -81,6 +82,7 @@ public class Translator
 				}
 				else if(itemType.equals("GROCERY"))
 				{
+					//should only have 7 fields
 					if(input.size() != 7)
 					{
 						return false;
@@ -129,7 +131,7 @@ public class Translator
 		}
 		else if(input.get(index) == "PRINT")
 		{
-			if(input.size() > 1)
+			if(input.size() != 1)
 			{
 				return false;
 			}
@@ -186,30 +188,31 @@ public class Translator
 		
 		return false;
 	}
-	
-	public void execute(ArrayList<String> input)
+	//TODO: insert portion and remove magic numbers
+	public void execute(ArrayList<String> input, ShoppingCart cart)
 	{
 		String command = input.get(0);
 		
+		//not sure for insert since I used a String arraylist and parameter is for String array
 		if(command.equals("INSERT"))
 		{
 			
 		}
 		else if(command.equals("SEARCH"))
 		{
-			
+			cart.search(input.get(1));	
 		}
 		else if(command.equals("DELETE"))
 		{
-			
+			cart.delete(input.get(1));
 		}
 		else if(command.equals("UPDATE"))
 		{
-			
+			cart.update(input.get(1), Integer.parseInt(input.get(2)));
 		}
 		else if(command.equals("PRINT"))
 		{
-			
+			cart.print();
 		}
 	}
 	

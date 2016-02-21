@@ -7,24 +7,29 @@ import java.io.IOException;
 import java.util.*;
 
 public class ShoppingCartDriver 
-	{
+{
+	
 
-	  public static void main(String[] args) 
-	  {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 		
 		//Open file; file name specified in args (command line)
-		  	//copty from prog 1?
+		//copty from prog 1?
 		if (args.length != 1) 
-			{
-				System.err.println ("Error: Incorrect number of command line arguments");
-				System.exit(-1);
-			}
-		processLinesInFile (args[0]);
+		{
+			System.err.println ("Error: Incorrect number of command line arguments");
+			System.exit(-1);
+		}
+		
+		ShoppingCart test = new ShoppingCart();
+		
+		processLinesInFile (args[0], test);
 		//Parse input, take appropriate actions.
 		  	//PARSE
 		  	//VERIFY
 		  	//TAKE ACTION
+
 		//Stub for arraylist.
 		ArrayList<Item> shoppingCart = new ArrayList<Item>(); 
 		
@@ -39,42 +44,43 @@ public class ShoppingCartDriver
 			//based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
 			// of Grocery, it will invoke the calculatePrice () method defined in Grocery.
 		}		
-	  }
-		public static void processLinesInFile (String filename) 
-		{ 
+	}
+	//Changes: added ShoppingCart as parameter
+	public static void processLinesInFile (String filename, ShoppingCart cart) 
+	{ 
 
-			Translator translator = new Translator(); 
-			try 
+		Translator translator = new Translator(); 
+		try 
+		{
+			FileReader freader = new FileReader(filename);
+			BufferedReader reader = new BufferedReader(freader);
+			
+			for (String s = reader.readLine(); s != null; s = reader.readLine()) 
 			{
-				FileReader freader = new FileReader(filename);
-				BufferedReader reader = new BufferedReader(freader);
-				
-				for (String s = reader.readLine(); s != null; s = reader.readLine()) 
+				//parseInput takes line and puts words into arraylist
+				ArrayList<String> input = translator.parseInput(s);
+				if(translator.confirmCorrect(input))
 				{
-					ArrayList<String> input = translator.parseInput(s);
-					if(translator.confirmCorrect(input))
-					{
-						
-					}
-					else
-					{
-						System.out.println("Invalid input. Going to next line.");
-						continue;
-					}
-					
-					
+					translator.execute(input, cart);
 				}
-			} 
-			catch (FileNotFoundException e) 
-			{
-				System.err.println ("Error: File not found. Exiting...");
-				e.printStackTrace();
-				System.exit(-1);
-			} catch (IOException e) 
-			{
-				System.err.println ("Error: IO exception. Exiting...");
-				e.printStackTrace();
-				System.exit(-1);
+				else
+				{
+					//general error message
+					System.out.println("Invalid input. Going to next line.");
+					continue;
+				}		
 			}
+		} 
+		catch (FileNotFoundException e) 
+		{
+			System.err.println ("Error: File not found. Exiting...");
+			e.printStackTrace();
+			System.exit(-1);
+		} catch (IOException e) 
+		{
+			System.err.println ("Error: IO exception. Exiting...");
+			e.printStackTrace();
+			System.exit(-1);
 		}
+	}
 }
