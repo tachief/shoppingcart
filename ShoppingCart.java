@@ -1,8 +1,10 @@
 package Assignment3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class ShoppingCart {
+public class ShoppingCart
+{
 	
 	private ArrayList<Item> cart = new ArrayList<Item>();
 	private final int tPlace = 1;
@@ -11,19 +13,30 @@ public class ShoppingCart {
 	private final int qPlace = 4;
 	private final int wPlace = 5;
 	private final int fPlace = 6;
-	private final int sPlace = 7;
+	private final int sPlace = 7;		
 
 	public int delete(String data)
 	{
+		ArrayList<Integer> remove = new ArrayList<Integer>();
+		int size = cart.size();
 		int ret = 0;
-		for(int i =0; i < cart.size(); i++)
+		for(int i =0; i < size; i++)
 		{
+			
 			if(cart.get(i).getName().equals(data))
 			{
-				cart.remove(cart.get(i));
+				remove.add(i);;
 				ret++;
 			}
 		}
+			Collections.reverse(remove);
+			for(int j = 0; j < remove.size(); j++)
+			{
+				int rVal = remove.get(j);
+				cart.remove(rVal);
+			}
+		
+		
 		return ret;
 	}
 	public void insert(ArrayList<String> data)
@@ -35,7 +48,13 @@ public class ShoppingCart {
 		
 		if(data.get(tPlace).equals("ELECTRONICS"))
 		{
-			boolean fragile = Boolean.valueOf(data.get(fPlace));
+			//boolean fragile = Boolean.valueOf(data.get(fPlace));
+			boolean fragile;
+			if(data.get(fPlace).equals("F"))
+				fragile = true;
+			else
+				fragile = false;
+			
 			Electronics toAdd = new Electronics(data.get(nPlace), price,quantity,weight,fragile,data.get(sPlace));
 			cart.add(toAdd);
 		}
@@ -45,9 +64,15 @@ public class ShoppingCart {
 			cart.add(toAdd);
 			
 		}
-		if(data.get(tPlace).equals("GROCERY"))
+		if(data.get(tPlace).equals("GROCERIES"))
 		{
-			boolean perishable = Boolean.valueOf(data.get(fPlace));
+			//boolean perishable = Boolean.valueOf(data.get(fPlace));
+			boolean perishable;
+			if(data.get(fPlace).equals("P"))
+				perishable = true;
+			else
+				perishable = false;
+			
 			Grocery toAdd = new Grocery(data.get(nPlace),price,quantity,weight,perishable);
 			cart.add(toAdd);
 		}
@@ -61,7 +86,9 @@ public class ShoppingCart {
 		double totalPrice =0;
 		String ask = " ** ";
 		String tab = "\t";
-		ArrayList<Item> sortedCart = sort(cart);
+		
+		ArrayList<Item> sortedCart = cart;
+		Collections.sort(sortedCart);
 		System.out.println("************************************");
 		System.out.println("**The contents of the cart are: **");
 		for(int i =0; i < sortedCart.size();i++)
@@ -75,7 +102,7 @@ public class ShoppingCart {
 			System.out.println(ask + tab + "Quantity: " + data[quantityPlace]+ ask);
 			System.out.println(ask + tab + "Weight: " + data[weightPlace]+ ask);
 
-			if(data[0].equals("GROCERY"))
+			if(data[0].equals("GROCERIES"))
 			{
 			System.out.println(ask + tab + "Premium Shipping: " + data[fPlace] + ask);
 			System.out.println(ask + tab + "Perishable: " + data[fPlace] + ask);
@@ -87,44 +114,29 @@ public class ShoppingCart {
 			if(data[0].equals("ELECTRONICS"))
 			{
 			System.out.println(ask + tab + "Premium Shipping: " + data[fPlace] + ask);
-			System.out.println(ask + tab + "Perishable: " + data[fPlace] + ask);
-			System.out.println(ask + tab + "Perishable: " + data[sPlace] + ask);
+			System.out.println(ask + tab + "Fragile: " + data[fPlace] + ask);
+			System.out.println(ask + tab + "State: " + data[sPlace] + ask);
 			}
+			
 			System.out.println(ask + tab + "Final Price: " + data[fpPlace]+ ask);
-			totalPrice += Integer.valueOf(data[fpPlace]);
-			System.out.println("Total Price of Shopping Cart is: " + totalPrice);
-			System.out.println("************************************");
+			totalPrice += Double.valueOf(data[fpPlace]);
 		}
+		System.out.println("Total Price of Shopping Cart is: " + totalPrice);
+		System.out.println("************************************");
 	}
-	public ArrayList<Item> sort(ArrayList<Item> data)
-	{
-		ArrayList<Item> ret = new ArrayList<Item>();
-		int size = data.size();
-		
-		for(int j = 0; j< size; j++){
-		String next = data.get(j).getName();
-		int nextPlace = 0;
-		for(int i =0; i< data.size();i++)
-		{
-			if(data.get(i).getName().compareTo(next) < 1)
-			{
-				nextPlace = i;
-				next = data.get(i).getName();
-			}
-		}
-		ret.add(data.get(nextPlace));
-		data.remove(data.get(nextPlace));
-		}
-		return ret;
-	}
+	
 	public int search(String input)
 	{
 		int counter = 0;
 		for(int i = 0; i < cart.size(); i++)
 		{
-			if(cart.get(i).equals(input))
+			if(cart.get(i).getName().equals(input))
 				counter++;
 		}
+		System.out.println();
+		System.out.println("SEARCH:");
+		System.out.println("There is/are " + counter + " " + input +  " in the cart");
+		System.out.println();
 		
 		return counter;
 	}
