@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 public class Translator
 {
+	ShoppingCart cart = new ShoppingCart();
 	final static String[] STATES = 
 		{
 				"AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", 
@@ -13,7 +14,19 @@ public class Translator
 				"MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", 
 				"NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", 
 				"SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
-		}; 
+		};
+	public void translate(String data)
+	{
+		ArrayList<String> dataList = parseInput(data);
+		if(confirmCorrect(dataList))
+		{
+			execute(dataList, cart);
+		}
+		else
+		{
+			System.out.println("Unable to execute given inputs");
+		}
+	};
 	
 	public ArrayList<String> parseInput(String input)
 	{
@@ -32,17 +45,24 @@ public class Translator
 	
 	public boolean confirmCorrect(ArrayList<String> input)
 	{
-		if(input.size() == 0)
+		if(input.size() == 0){
+			System.out.println("Empty inputs are NOT valid");
 			return false;
-		
+		}
 		int index = 0;
-		if(input.get(index) == "INSERT")
+		if(input.get(index).equals( "INSERT"))
 		{
 			try
 			{
-				index++;
-				if(!input.get(index).equals("CLOTHING") && !input.get(index).equals("ELECTRONICS") && !input.get(index).equals("GROCERY"))
+				for(int i =0; i< input.size(); i++)
 				{
+					System.out.println(input.get(i));
+				}
+				index++;
+				if(!input.get(index).equals("CLOTHING") && !input.get(index).equals("ELECTRONICS") && !input.get(index).equals("GROCERIES"))
+				{
+					System.out.println("INCORRECT TYPE OF ITEM");
+					System.out.println("Wrong inputs, try again");
 					return false;
 				}
 				String itemType = input.get(index);
@@ -80,7 +100,7 @@ public class Translator
 					}
 					
 				}
-				else if(itemType.equals("GROCERY"))
+				else if(itemType.equals("GROCERIES"))
 				{
 					//should only have 7 fields
 					if(input.size() != 7)
@@ -101,14 +121,14 @@ public class Translator
 				return false;
 			}
 		}
-		else if(input.get(index) == "SEARCH")
+		else if(input.get(index).equals("SEARCH"))
 		{
 			if(input.size() != 2)
 			{
 				return false;
 			}
 		}
-		else if(input.get(index) == "DELETE")
+		else if(input.get(index).equals("DELETE"))
 		{
 			if(input.size() != 2)
 			{
@@ -116,7 +136,7 @@ public class Translator
 			}
 			
 		}
-		else if(input.get(index) == "UPDATE")
+		else if(input.get(index).equals("UPDATE"))
 		{
 			if(input.size() != 3)
 			{
@@ -129,16 +149,18 @@ public class Translator
 			}
 			
 		}
-		else if(input.get(index) == "PRINT")
+		else if(input.get(index).equals("PRINT"))
 		{
 			if(input.size() != 1)
 			{
 				return false;
 			}
 		}
-		else
+		else{
+			System.out.println("BAD INPUTS, " + input.get(index) + " IS NOT A VALID INPUT"); 
+			System.out.println("Enter valid inputs");
 			return false;
-		
+		}
 		return true;
 	}
 	
@@ -151,11 +173,13 @@ public class Translator
 		}
 		catch(NumberFormatException nfe)
 		{
+			System.out.println("This number is NOT valid");
 			return false;
 		}
 		
-		if(val < 0)
-			return false;
+		if(val < 0){
+			System.out.println("Negative numbers are NOT allowed");
+			return false;}
 		
 		return true;
 	}
@@ -169,6 +193,7 @@ public class Translator
 		}
 		catch(NumberFormatException nfe)
 		{
+			System.out.println("This is NOT a valid double");
 			return false;
 		}
 		
@@ -185,18 +210,18 @@ public class Translator
 			if(input.equals(state))
 				return true;
 		}
-		
+		System.out.println("You're trying to ship to a state that doesn't exist");
 		return false;
 	}
-	//TODO: insert portion and remove magic numbers
+	//TODO: remove magic numbers
 	public void execute(ArrayList<String> input, ShoppingCart cart)
 	{
 		String command = input.get(0);
 		
-		//not sure for insert since I used a String arraylist and parameter is for String array
+		
 		if(command.equals("INSERT"))
 		{
-			
+			cart.insert(input);
 		}
 		else if(command.equals("SEARCH"))
 		{
@@ -215,5 +240,5 @@ public class Translator
 			cart.print();
 		}
 	}
-	
 }
+	
