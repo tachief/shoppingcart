@@ -93,6 +93,7 @@ public class Translator
 			return false;
 		}
 		int index = 0;
+		input.set(index,input.get(index).toUpperCase());
 		if(input.get(index).equals( "INSERT"))
 		{
 			try
@@ -108,8 +109,13 @@ public class Translator
 					System.out.println("Wrong inputs, try again");
 					return false;
 				}
+				for(int i = 0; i < input.size();i++)
+				{
+					
+					if(i != 3)
+						input.set(i,input.get(i).toUpperCase());
+				}
 				String itemType = input.get(index);
-				//TODO: replace magic numbers with constants
 				if(!isPositiveDouble(input.get(INS_PRICE_INDEX)) || !isPositiveInteger(input.get(INS_QUANT_INDEX)) || !isPositiveDouble(input.get(INS_WT_INDEX)))
 				{
 					return false;
