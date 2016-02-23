@@ -1,16 +1,41 @@
+/**
+ * Classes to drive shopping cart
+ * Solves EE422C programming assignment #3
+ * @author Tauseef Aziz
+ * @author John Polarinakis
+ * @version 1.00 2016-02-22
+ */
+
 package Assignment3;
 
+//Purpose: specialized shopping cart item
 public class Electronics extends Item 
 {		private boolean premiumShipping;
 		private boolean fragile;
 		private String state;
+	
+	/**
+	 * Electronics constructor
+	 * @param name
+	 * @param price
+	 * @param quantity
+	 * @param weight
+	 * @param fragile
+	 * @param state
+	 */
 	public Electronics(String name, double price, int quantity, double weight,
-			 boolean fragile, String state) {
+			 boolean fragile, String state) 
+	{
 		super(name, price, quantity, weight);
 			this.premiumShipping = fragile;
 			this.fragile = fragile;
 			this.state = state;
 	}
+	
+	/**
+	 * Puts traits of electronics into string array
+	 * @return String array of electronics traits
+	 */
 	public String[] getTraits()
 	{
 		String[] ret = super.getTraits();
@@ -21,7 +46,12 @@ public class Electronics extends Item
 		return ret;
 		
 	}
-	double calculatePrice () 
+	
+	/**
+	 * calculates price including shipping and sales tax(as applicable)
+	 * @return final price of electronics item
+	 */
+	public double calculatePrice () 
 	{
 		double ret = super.calculatePrice();
 		

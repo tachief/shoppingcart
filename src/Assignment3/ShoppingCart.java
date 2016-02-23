@@ -1,8 +1,17 @@
+/**
+ * Classes to drive shopping cart
+ * Solves EE422C programming assignment #3
+ * @author Tauseef Aziz
+ * @author John Polarinakis
+ * @version 1.00 2016-02-22
+ */
+
 package Assignment3;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+//Class encapsulates shopping cart properties and methods
 public class ShoppingCart
 {
 	
@@ -14,21 +23,33 @@ public class ShoppingCart
 	private final int wPlace = 5;
 	private final int fPlace = 6;
 	private final int sPlace = 7;		
-
+	
 	public int delete(String data)
 	{
+		ArrayList<Integer> remove = new ArrayList<Integer>();
+		int size = cart.size();
 		int ret = 0;
-		for(int i =0; i < cart.size(); i++)
+		for(int i =0; i < size; i++)
 		{
+			
 			if(cart.get(i).getName().equals(data))
 			{
-				cart.remove(cart.get(i));
+				remove.add(i);;
 				ret++;
 			}
 		}
+			Collections.reverse(remove);
+			for(int j = 0; j < remove.size(); j++)
+			{
+				int rVal = remove.get(j);
+				cart.remove(rVal);
+			}
+		
 		
 		return ret;
 	}
+	
+	
 	public void insert(ArrayList<String> data)
 	{
 		double price = Double.valueOf(data.get(pPlace));
@@ -67,6 +88,7 @@ public class ShoppingCart
 			cart.add(toAdd);
 		}
 	}
+	
 	public void print()
 	{	
 		final int pricePlace = 2;
@@ -115,52 +137,51 @@ public class ShoppingCart
 		System.out.println("************************************");
 	}
 	
+	/**
+	 * Counts up all items' names that equal input
+	 * @param input item to find
+	 * @return total quantity of items of same name as input found
+	 */
 	public int search(String input)
 	{
 		int counter = 0;
 		for(int i = 0; i < cart.size(); i++)
 		{
 			if(cart.get(i).getName().equals(input))
-				counter++;
+				counter = counter + cart.get(i).getQuantity();
 		}
-		System.out.println();
-		System.out.println("SEARCH:");
-		System.out.println("There is/are " + counter + " " + input +  " in the cart");
-		System.out.println();
 		
 		return counter;
 	}
 	
-	public String update(String input, int amount)
+	/**
+	 * Updates first instance item's name to new amount
+	 * @param input	name of item to update
+	 * @param amount new quantity to set item to
+	 */
+	public void update(String input, int amount)
 	{
+		System.out.println();
+		System.out.println("UPDATE:");
 		if(search(input) == 0)
 		{
-			return "There are no " + input + " in the cart"; 
+			System.out.println("There are no " + input + " objects in the cart");
+			System.out.println();
 		}
 		int index = 0;
 		while(index < cart.size())
 		{
-			if(cart.get(index).equals(input))
+			if(cart.get(index).getName().equals(input))
 				break;
 			
 			index++;
 		}
-		cart.get(index).addQuantity(amount);
+		cart.get(index).setQuantity(amount);
 		
-		return "There are now " + cart.get(index).quantity 
-				+ " " +  cart.get(index).name + " in the cart";
+		System.out.println("There are now " + cart.get(index).getQuantity() 
+				+ " " +  cart.get(index).name + " object(s) for its first instance in the cart");
+		System.out.println();
 	}
 
 	
 }
-
-/*	public Item findItem(String data){
-for(int i =0;i<cart.size();i++){
-	if(cart.get(i).getName() == data){
-		return cart.get(i);}
-}
-	// the below constructor is not allowed
-	Item newItem = new Item(data);
-	cart.add(newItem);
-    return newItem;
-}*/
