@@ -73,7 +73,7 @@ public class Translator
 		
 		while(parser.hasMoreTokens())
 		{
-			parsed.add(parser.nextToken().toUpperCase());
+			parsed.add(parser.nextToken());
 		}
 		
 		return parsed;
@@ -93,14 +93,18 @@ public class Translator
 			return false;
 		}
 		int index = 0;
-		input.set(index,input.get(index).toUpperCase());
-		if(input.get(index).equals( "INSERT"))
+		input.set(index, input.get(index).toUpperCase());
+		if(input.get(index).equals("INSERT"))
 		{
 			try
 			{
+				
 				for(int i =0; i< input.size(); i++)
 				{
-					System.out.println(input.get(i));
+					if(i != 2)
+						input.set(i, input.get(i).toUpperCase());
+					
+					//System.out.println(input.get(i));
 				}
 				index++;
 				if(!input.get(index).equals("CLOTHING") && !input.get(index).equals("ELECTRONICS") && !input.get(index).equals("GROCERIES"))
@@ -109,12 +113,7 @@ public class Translator
 					System.out.println("Wrong inputs, try again");
 					return false;
 				}
-				for(int i = 0; i < input.size();i++)
-				{
-					
-					if(i != 3)
-						input.set(i,input.get(i).toUpperCase());
-				}
+
 				String itemType = input.get(index);
 				if(!isPositiveDouble(input.get(INS_PRICE_INDEX)) || !isPositiveInteger(input.get(INS_QUANT_INDEX)) || !isPositiveDouble(input.get(INS_WT_INDEX)))
 				{
@@ -301,7 +300,7 @@ public class Translator
 			int findings = cart.search(input.get(SEARCH_NAME_INDEX));
 			if(findings == 0)
 			{
-				System.out.println("There are no " + input.get(SEARCH_NAME_INDEX) + " object(s) in the cart");
+				System.out.println("There are no " + input.get(SEARCH_NAME_INDEX) + " objects in the cart");
 				System.out.println();
 			}
 			else

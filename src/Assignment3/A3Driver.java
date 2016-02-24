@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 //Purpose: logic behind the shopping cart
-public class ShoppingCartDriver 
+public class A3Driver 
 	{
 
 	  public static void main(String[] args) 

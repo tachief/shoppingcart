@@ -56,6 +56,10 @@ public class ShoppingCart
 		int quantity = Integer.valueOf(data.get(qPlace));
 		double weight = Double.valueOf(data.get(wPlace));
 
+		for(int i =0; i< data.size(); i++)
+		{
+			System.out.println(data.get(i));
+		}
 		
 		if(data.get(tPlace).equals("ELECTRONICS"))
 		{
@@ -87,6 +91,8 @@ public class ShoppingCart
 			Grocery toAdd = new Grocery(data.get(nPlace),price,quantity,weight,perishable);
 			cart.add(toAdd);
 		}
+		
+		Collections.sort(cart);
 	}
 	
 	public void print()
@@ -167,6 +173,7 @@ public class ShoppingCart
 		{
 			System.out.println("There are no " + input + " objects in the cart");
 			System.out.println();
+			return;
 		}
 		int index = 0;
 		while(index < cart.size())
